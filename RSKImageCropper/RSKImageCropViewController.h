@@ -180,6 +180,8 @@ typedef NS_ENUM(NSUInteger, RSKImageCropMode) {
  */
 @property (assign, getter=isRotationEnabled, nonatomic) BOOL rotationEnabled;
 
+@property (assign) CGFloat minimumCropDimension;
+
 /// -------------------------------
 /// @name Accessing the UI Elements
 /// -------------------------------

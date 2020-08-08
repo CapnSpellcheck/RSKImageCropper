@@ -151,6 +151,8 @@ static const CGFloat kPhotoFrameViewPadding = 2.0f;
     UIImage *photo = [UIImage imageNamed:@"photo"];
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:photo cropMode:RSKImageCropModeCircle];
     imageCropVC.delegate = self;
+   imageCropVC.avoidEmptySpaceAroundImage = YES;
+   imageCropVC.minimumCropDimension = 200;
     [self.navigationController pushViewController:imageCropVC animated:YES];
 }
 
@@ -163,6 +165,7 @@ static const CGFloat kPhotoFrameViewPadding = 2.0f;
 
 - (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage usingCropRect:(CGRect)cropRect rotationAngle:(CGFloat)rotationAngle
 {
+   NSLog(@"CROPRECT: %@", NSStringFromCGRect(cropRect));
     [self.addPhotoButton setImage:croppedImage forState:UIControlStateNormal];
     [self.navigationController popViewControllerAnimated:YES];
 }

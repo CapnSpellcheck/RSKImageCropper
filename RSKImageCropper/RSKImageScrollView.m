@@ -210,8 +210,14 @@
     if (minScale > maxScale) {
         minScale = maxScale;
     }
-    
-    self.maximumZoomScale = maxScale;
+   
+   NSLog(@"setMaxMinZoomScalesForCurrentBounds: wanted maxZoomScale = %f", maxScale);
+   if (_enforcedMaxZoomScale > 0) {
+      NSLog(@"setMaxMinZoomScalesForCurrentBounds: override maxZoomScale = %f", _enforcedMaxZoomScale);
+      maxScale = _enforcedMaxZoomScale;
+   }
+   
+   self.maximumZoomScale = maxScale;
     self.minimumZoomScale = minScale;
 }
 

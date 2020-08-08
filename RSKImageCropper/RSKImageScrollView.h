@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable, strong) UIImageView *zoomView;
 @property (nonatomic, assign) BOOL aspectFill;
+@property (assign) CGFloat enforcedMaxZoomScale;
 
 - (void)displayImage:(UIImage *)image;
 

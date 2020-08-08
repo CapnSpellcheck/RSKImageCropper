@@ -83,6 +83,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         _maskLayerLineWidth = 1.0;
         _rotationEnabled = NO;
         _cropMode = RSKImageCropModeCircle;
+       _minimumCropDimension = -1.0;
         
         _portraitCircleMaskRectInnerEdgeInset = 15.0f;
         _portraitSquareMaskRectInnerEdgeInset = 20.0f;
@@ -218,6 +219,16 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+   
+   if (_minimumCropDimension > 0) {
+      if (_cropMode == RSKImageCropModeCustom)
+         NSLog(@"RSKImageCropper does not consider non-square crop modes when implementing minimumCropDimension. Enforcement will be based on width calculation only");
+      // The imageScrollView's width has been laid out. With minimumCropDimension set, the scrollview's
+      // max-zoomed visible content width must equal minimumCropDimension.
+      CGFloat imageWidth = self.originalImage.size.width; // TODO: originalImage.scale adjustment?
+      CGFloat enforcedMaxScale = self.imageScrollView.bounds.size.width / _minimumCropDimension;
+      self.imageScrollView.enforcedMaxZoomScale = enforcedMaxScale;
+   }
     
     if (!self.imageScrollView.zoomView) {
         [self displayImage];
